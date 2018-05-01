@@ -1,0 +1,10 @@
+user api to create and find:
+
+register:
+user_name first_name last _name email password phone_no role_type status
+
+login:
+user_name password
+
+
+

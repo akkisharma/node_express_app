@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<% include ../partials/head %>
+</head>
+<body class="container">
+
+	<header>
+		<% include ../partials/header %>
+	</header>
+
+	<main>
+		<div class="jumbotron">
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th scope="col">User Name</th>
+						<th scope="col">Email</th>
+						<th scope="col">First Name</th>
+						<th scope="col">Last Name</th>
+						<th scope="col">Phone No.</th>
+						<th scope="col">Role Type</th>
+						<th scope="col">Update At</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% users.forEach((user) => { %>
+						<tr>
+							<td><%= user.user_name %></td>
+							<td><%= user.email %></td>
+							<td><%= user.first_name %></td>
+							<td><%= user.last_name %></td>
+							<td><%= user.phone_no %></td>
+							<td><%= user.role_type %></td>
+							<td><%= user.updated_at %></td>
+						</tr>
+						<% }) %>
+				</tbody>
+			</table>
+		</div>
+	</main>
+
+	<footer>
+		<% include ../partials/footer %>
+	</footer>
+
+</body>
+</html>

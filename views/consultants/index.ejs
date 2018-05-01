@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<% include ../partials/head %>
+</head>
+<body class="container">
+
+	<header>
+		<% include ../partials/header %>
+	</header>
+
+	<main>
+		<div class="jumbotron">
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th scope="col">User Name</th>
+						<th scope="col">Email</th>
+						<th scope="col">First Name</th>
+						<th scope="col">Last Name</th>
+						<th scope="col">Phone No.</th>
+						<th scope="col">Role Type</th>
+						<th scope="col">Status</th>
+						<th scope="col">Consultant category</th>
+						<th scope="col">Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% users.forEach((user) => { %>
+						<tr>
+							<td class="consult_user_name"><%= user.user_name %></td>
+							<td><%= user.email %></td>
+							<td><%= user.first_name %></td>
+							<td><%= user.last_name %></td>
+							<td><%= user.phone_no %></td>
+							<td><%= user.role_type %></td>
+							<td class="consult_status"><%= user.consultant_attributes.status %></td>
+							<td><%= user.consultant_attributes.consultant_category %></td>
+							<td><button class="approve_consult btn btn-sm <%= user.consultant_attributes.status=='Pending' ? 'btn-primary' : 'btn-success' %> "><%= user.consultant_attributes.status=='Pending' ? "APPROVE" : "APPROVED" %></button></td>
+						</tr>
+						<% }) %>
+				</tbody>
+			</table>
+		</div>
+	</main>
+
+	<footer>
+		<% include ../partials/footer %>
+		<script src="../javascripts/consultants/consultants.js"></script>
+	</footer>
+
+</body>
+</html>

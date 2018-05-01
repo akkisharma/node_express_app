@@ -1,19 +1,23 @@
 var createError = require('http-errors');
 var express = require('express');
+var app = express();
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var session = require('express-session');
 var mongoose = require('mongoose');
-mongoose.Promise = global.Promise;
+var bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json())
 
+mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/product')
   .then(() =>  console.log('connection succesful'))
   .catch((err) => console.error(err));
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var productsRouter = require('./routes/products');
-var app = express();
+var consultantsRouter = require('./routes/consultants');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -27,7 +31,20 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/products', productsRouter);
+app.use('/consultants', consultantsRouter);
+app.use(session({
+	secret: 'cookie-secret',
+	saveUninitialized: true,
+	resave: false,
+	cookie: { secure: true }
+}));
+
+
+app.get('/logout', function(req, res){
+  req.session.destroy(function(){
+    res.json({message: 'user logged out.'});
+  });
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
