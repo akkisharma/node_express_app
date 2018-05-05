@@ -16,6 +16,8 @@ mongoose.connect('mongodb://localhost/product')
   .catch((err) => console.error(err));
 
 var indexRouter = require('./routes/index');
+var apiRouter = require('./routes/api');
+var sessionRouter = require('./routes/sessions');
 var usersRouter = require('./routes/users');
 var consultantsRouter = require('./routes/consultants');
 
@@ -25,15 +27,18 @@ app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
+
+// app.use('/', indexRouter);
+app.use('/', sessionRouter);
+app.use('/api', apiRouter);
 app.use('/users', usersRouter);
 app.use('/consultants', consultantsRouter);
 app.use(session({
-	secret: 'cookie-secret',
+	secret: 'yeuidhjksydhskhu',
 	saveUninitialized: true,
 	resave: false,
 	cookie: { secure: true }

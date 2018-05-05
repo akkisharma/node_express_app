@@ -5,6 +5,7 @@ var User = require('../models/User.js')
 
 /* GET ALL Users */
 router.get('/', function(req, res, next) {
+
   User.find({"role_type" : "Consultant"}, function (err, users) {
     if (err) return next(err);
 
@@ -14,20 +15,6 @@ router.get('/', function(req, res, next) {
       res.json({message: 'No Consultant Found!'})
     }
   });
-});
-
-router.get('/:status', function(req, res, next) {
-  status = req.params.status;
-  if(status) {
-    status = status.charAt(0).toUpperCase() + status.slice(1);
-    User.find({"consultant_attributes.status" : status}, function (err, users) {
-      if (err) return next(err);
-      // res.render('consultants/index', {users: users});
-      res.json({users: users});
-    });
-  } else {
-    res.json({message: 'No Consultant Found!', status: false})
-  }
 });
 
 router.put('/update_status', function(req, res, next) {
